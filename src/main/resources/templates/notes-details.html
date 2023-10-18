@@ -7,12 +7,14 @@
 <body>
 <header th:insert ="blocks/header :: header"></header>
 <div class="container mt-5">
-<h1>Заметки сайта</h1>
-    <div th:each="el: ${notes}" class="alert alert-info mt-2">
+    <div th:each="el: ${note}" class="alert alert-info mt-2">
         <h3 th:text="${el.title}"/>
-        <p th:text="${el.anons}"/>
-        <a th:href="'/notes-main/' + ${el.id}" class="btn btn-warning">Детальнее</a>
-</div>
+        <p th:text="${el.full_text}"/>
+        <a th:href="'/notes-main/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <form th:action="'/notes-main/' + ${el.id}+ '/remove'" method="post">
+        <button class="btn btn-warning" type="submit">Удалить</button>
+        </form>
+    </div>
 </div>
 <div th:insert ="blocks/footer :: footer"></div>
 </body>
