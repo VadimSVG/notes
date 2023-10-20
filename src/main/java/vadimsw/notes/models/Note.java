@@ -1,9 +1,6 @@
 package vadimsw.notes.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Note {
@@ -11,11 +8,19 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title, anons, full_text;
+    private byte[] image; // Поле для хранения изображения в виде массива байт
 
     public Note(String title, String anons, String full_text) {
         this.title = title;
         this.anons = anons;
         this.full_text = full_text;
+    }
+    public Note(String title, String anons, String full_text, byte[] image) {
+        this.title = title;
+        this.anons = anons;
+        this.full_text = full_text;
+        this.image = image;
+
     }
     public Note() {
     }
@@ -42,5 +47,14 @@ public class Note {
     }
     public void setFull_text(String full_text) {
         this.full_text = full_text;
+    }
+
+    public void setText(String text) {
+    }
+    public byte[] getImage() {
+        return image;
+    }
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

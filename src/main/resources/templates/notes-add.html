@@ -9,12 +9,34 @@
 <header th:insert ="blocks/header :: header"></header>
 <div class="container mt-5 mb-5">
     <h1>Добавление заметки</h1><br>
-   <form action="/notes-main/add" method="post">
-    <input type="text" name="title" placeholder="Введите название заметки" class="form-control"><br>
-    <input type="text" name="anons" placeholder="Введите анонс заметки" class="form-control"><br>
-    <textarea  name="full_text" placeholder="Введите полный текст заметки" class="form-control"></textarea><br>
-    <button type="submit" class="btn btn-success">Добавить заметку</button>
+<!--   <form action="/notes-main/add" method="post">-->
+<!--    <input type="text" name="title" placeholder="Введите название заметки" class="form-control"><br>-->
+<!--    <input type="text" name="anons" placeholder="Введите анонс заметки" class="form-control"><br>-->
+<!--    <textarea  name="full_text" placeholder="Введите полный текст заметки" class="form-control"></textarea><br>-->
+<!--       <input type="file" name="imageFile">-->
+<!--    <button type="submit" class="btn btn-success">Добавить заметку</button>-->
+
+<!--    </form>-->
+    <form method="post" enctype="multipart/form-data" action="/notes-main/add">
+        <div class="form-group">
+            <label for="title">Заголовок:</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="anons">Анонс:</label>
+            <textarea class="form-control" id="anons" name="anons"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="full_text">Полный текст:</label>
+            <textarea class="form-control" id="full_text" name="full_text"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="imageFile">Изображение:</label>
+            <input type="file" name="imageFile">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
+
 </div>
 <div th:insert ="blocks/footer :: footer"></div>
 </body>

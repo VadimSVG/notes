@@ -10,6 +10,8 @@
     <div th:each="el: ${note}" class="alert alert-info mt-2">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
+        <!-- Отображение изображения, если оно есть -->
+        <img th:if="${image}" th:src="'data:image/jpeg;base64,' + ${image}" alt="Изображение"><br><br>
         <a th:href="'/notes-main/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
         <form th:action="'/notes-main/' + ${el.id}+ '/remove'" method="post">
         <button class="btn btn-warning" type="submit">Удалить</button>
