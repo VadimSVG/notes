@@ -21,6 +21,19 @@ import java.util.Optional;
 public class NotesController {
     @Autowired
     private NoteRepository noteRepository;
+
+    @GetMapping("/JavaScript/textStyles.js")
+    public String getTextScripts(Model model){
+        return "JavaScript/textStyles.js";
+    }
+    @GetMapping("/JavaScript/fontStyles.js")
+    public String getFontScripts(Model model){
+        return "JavaScript/fontStyles.js";
+    }
+    @GetMapping("/JavaScript/editStyles.js")
+    public String getEditStyles(Model model){
+        return "JavaScript/editStyles.js";
+    }
     @GetMapping("/notes-main")
     public String notesMain(Model model){
         Iterable<Note> notes = noteRepository.findAll();
@@ -60,15 +73,28 @@ public class NotesController {
         return "notes-edit";
     }
     @PostMapping("/notes-main/{id}/edit")
-    public String notePostUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String anons,
-                              @RequestParam String full_text, Model model){
+    public String notePostUpdate(@PathVariable(value = "id") long id,
+                                 @RequestParam String title,
+                                 @RequestParam String anons,
+                                 @RequestParam String full_text,
+                                 @RequestParam String fontFamily,
+                                 @RequestParam String fontSize,
+                                 @RequestParam boolean isItalic,
+                                 @RequestParam boolean isBold,
+                                 Model model) {
         Note note = noteRepository.findById(id).orElseThrow();
         note.setTitle(title);
         note.setAnons(anons);
         note.setFull_text(full_text);
+        note.setFontFamily(fontFamily);
+        note.setFontSize(fontSize);
+        note.setIsBold(isBold);
+        note.setIsItalic(isItalic);
+
         noteRepository.save(note);
         return "redirect:/notes-main";
     }
+
     @PostMapping("/notes-main/{id}/remove")
     public String notePostDelete(@PathVariable(value = "id") long id, Model model){
         Note note = noteRepository.findById(id).orElseThrow();
@@ -81,11 +107,19 @@ public String notePostAdd(@RequestParam String title,
                           @RequestParam String anons,
                           @RequestParam String full_text,
                           @RequestParam("imageFile") MultipartFile imageFile,
+                          @RequestParam String fontFamily,
+                          @RequestParam String fontSize,
+                          @RequestParam boolean isItalic,
+                          @RequestParam boolean isBold,
                           Model model) {
     Note note = new Note();
     note.setTitle(title);
     note.setAnons(anons);
     note.setFull_text(full_text);
+    note.setFontFamily(fontFamily);
+    note.setFontSize(fontSize);
+    note.setIsBold(isBold);
+    note.setIsItalic(isItalic);
 
     if (imageFile != null && !imageFile.isEmpty()) {
         try {

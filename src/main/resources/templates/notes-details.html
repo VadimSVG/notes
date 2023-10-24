@@ -2,22 +2,24 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Заметки сайта</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 <body>
-<header th:insert ="blocks/header :: header"></header>
+<header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
     <div th:each="el: ${note}" class="alert alert-info mt-2">
-        <h3 th:text="${el.title}"/>
-        <p th:text="${el.full_text}"/>
-        <!-- Отображение изображения, если оно есть -->
-        <img th:if="${image}" th:src="'data:image/jpeg;base64,' + ${image}" alt="Изображение"><br><br>
-        <a th:href="'/notes-main/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <form th:action="'/notes-main/' + ${el.id}+ '/remove'" method="post">
-        <button class="btn btn-warning" type="submit">Удалить</button>
-        </form>
+        <div th:style="'font-family: ' + ${el.fontFamily} + '; font-size: ' + ${el.fontSize} + '; font-style: ' + (${el.isItalic} ? 'italic' : 'normal') + '; font-weight: ' + (${el.isBold} ? 'bold' : 'normal')">
+            <h3 th:text="${el.title}"/>
+            <p th:text="${el.full_text}"/>
+            <!-- Отображение изображения, если оно есть -->
+            <img th:if="${image}" th:src="'data:image/jpeg;base64,' + ${image}" alt="Изображение"><br><br>
+            <a th:href="'/notes-main/' + ${el.id} + '/edit'" class="btn btn-warning" style="">Редактировать</a><br><br>
+            <form th:action="'/notes-main/' + ${el.id}+ '/remove'" method="post">
+                <button class="btn btn-warning" type="submit">Удалить</button>
+            </form>
+        </div>
     </div>
 </div>
-<div th:insert ="blocks/footer :: footer"></div>
+<div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>
